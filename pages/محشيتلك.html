@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة كلمة المرور</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #383838;
+        }
+        h1 {
+            margin-top: 20px;
+            color: #ffffff;
+        }
+        #msg {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #f1d0d0;
+            text-align: center;
+            width: 100%;
+        }
+        .game-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #9900ff;
+            color: rgb(255, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            font-size: 60px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .box:hover {
+            background-color: rgb(23, 216, 23);
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h1>ابحث عن كلمة المرور</h1>
+    <div class="game-container">
+        <div class="box" onclick="showMessage(1)">1</div>
+        <div class="box" onclick="showMessage(2)">2</div>
+        <div class="box" onclick="showMessage(3)">3</div>
+        <div class="box" onclick="showMessage(4)">4</div>
+    </div>
+    <div class="message" id="message"></div>
+    <h1 id="msg">كلمة مرورك موجودة في احد هذه الصناديق. اختر الصندوق الصحيح لتجدها </h1>
+
+    <script>
+        function showMessage(boxNumber) {
+            let messageElement = document.getElementById("message");
+            if (boxNumber === 2) {
+                messageElement.innerText = "😆نسيت كلمة السر؟ أنا ثاني نسيتها!";
+            } else if (boxNumber === 4) {
+                messageElement.innerText = "😆كلمة السر في مكان آمن... بس حتى أنا ما نعرف وين!";
+            } else {
+                messageElement.innerText = "خطأ! حاول مرة أخرى!";
+            }
+        }
+    </script>
+</body>
+</html>

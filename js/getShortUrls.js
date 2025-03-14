@@ -3,60 +3,47 @@ const shortenUrlList = document.getElementById('shorten-list');
 const getShortUrls = async () => {
     const url = 'https://www.shorten-url-api.infobrains.club/api/private/urls';
     const token = localStorage.getItem('token');
-    const page = 1;
-    const limit = 10;
 
-    const response = await fetch(`${url}?page=${page}&limit=${limit}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    });
-
-    const jsonResponse = await response.json();
-
-    if (response.status === 500) {
-        alert('Internal server error');
-    }
-
-    if (response.status === 401) {
-        alert('Unauthorized');
-        localStorage.removeItem('token');
-        window.location.href = '/index.html';
-    }
-
-    if (response.status === 200) {
-        const data = jsonResponse.data;
-        const pagination = jsonResponse.pagination;
-
-        data.forEach((shortUrl) => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-            <div class="shorten-url">
-                <div class="shorten-url__original-url">
-                    <p><strong>Original:</strong> ${shortUrl.originalUrl}</p>
-                </div>
-                <div class="shorten-url__short-url">
-                    <p><strong>Shortened:</strong> 
-                        <a href="${shortUrl.shortUrl}" target="_blank" rel="noopener noreferrer">
-                            ${shortUrl.shortUrl}
-                        </a>
-                    </p>
-                </div>
-                <div class="shorten-url__clicks">
-                    <p><strong>Clicks:</strong> ${shortUrl.clicks}</p>
-                </div>
-                <div class="shorten-url__created-at">
-                    <p><strong>Created At:</strong> ${new Date(shortUrl.createdAt).toLocaleString()}</p>
-                </div>
-                <div class="shorten-url__updated-at">
-                    <p><strong>Updated At:</strong> ${new Date(shortUrl.updatedAt).toLocaleString()}</p>
-                </div>
-            </div>
-            `;
-            shortenUrlList.appendChild(li);
+    try {
+        const response = await fetch(`${url}?page=1&limit=10`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
+
+        if (!response.ok) {
+            throw new Error('Error fetching URLs');
+        }
+
+        const jsonResponse = await response.json();
+        shortenUrlList.innerHTML = "";
+
+        jsonResponse.data.forEach((shortUrl) => {
+            const div = document.createElement('div');
+            div.classList.add('short-url-item');
+            div.innerHTML = `
+                <div class="shorten-url">
+                    <p><strong>Original:</strong> 
+                        <span class="original-url-text">${shortUrl.originalUrl}</span>
+                    </p>
+                    <p><strong>Shortened:</strong> 
+                        <a href="${shortUrl.shortUrl}" target="_blank">${shortUrl.shortUrl}</a>
+                    </p>
+                    <button class="edit-btn" data-id="${shortUrl.id}" data-url="${shortUrl.originalUrl}">Edit</button>
+                    <button class="delete-btn" data-id="${shortUrl.id}">Delete</button>
+                </div>
+            `;
+
+            shortenUrlList.appendChild(div);
+        });
+
+        attachEditEvent();
+        attachDeleteEvent();
+    } catch (error) {
+        console.error('Failed to fetch URLs:', error);
+        alert('Failed to load URLs');
     }
 };
 

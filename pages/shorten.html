@@ -5,22 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shorten</title>
     <script src="../js/private.js"></script>
+    <link rel="stylesheet" href="../style/sorten.css">
 </head>
 <body>
     <a href="/pages/logout.html">Logout</a>
-    <div class="container">
-        <h1>Create a shortcut for your URL</h1>
-        <form id="shorten-form" method="post">
-            <input type="url" name="url" placeholder="Enter your URL" required>
-            <button type="submit">Shorten</button>
-        </form>
-        <div id="shorten-result"></div>
+    <div class="main-container">
+        <div class="container">
+            <h1>Create a shortcut for your URL</h1>
+            <form id="shorten-form" method="post">
+                <input type="url" name="url" placeholder="Enter your URL" required>
+                <button type="submit">Shorten</button>
+            </form>
+            <div id="shorten-result"></div>
+        </div>
+
+        <div class="container">
+            <h1>Your shortened URLs</h1>
+            <div id="shorten-list"></div>
+        </div>
     </div>
-    <div class="container">
-        <h1>Your shortened URLs</h1>
-        <div id="shorten-list"></div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit URL</h2>
+            <input type="text" id="editUrlInput" placeholder="Enter new URL">
+            <button id="saveEditBtn">Save</button>
+        </div>
     </div>
+    
     <script src="../js/createShortUrl.js"></script>
     <script src="../js/getShortUrls.js"></script>
+    <script src="../js/deleteShortUrl.js"></script>
+    <script src="../js/updateShortUrl.js"></script>
+
+
 </body>
 </html>
