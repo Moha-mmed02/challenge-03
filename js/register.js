@@ -38,7 +38,7 @@ registerForm.addEventListener('submit', async (e) => {
         } else if (result.status === 201) {
             const token = jsonResponse.data.accessToken;
             localStorage.setItem('token', token);
-            window.location.href = '/pages/shorten.html';
+            window.location.href = './pages/shorten.html';
         } else {
             alert('Unexpected error occurred');
         }
