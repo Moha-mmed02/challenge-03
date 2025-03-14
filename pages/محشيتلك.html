@@ -54,9 +54,27 @@
             font-weight: bold;
             color: #ffffff;
         }
+
+        .reset {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #ff4444;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .reset:hover {
+            background-color: #ff0000;
+        }
     </style>
 </head>
 <body>
+    <a href="./logout.html" class="reset"> Back</a>
     <h1>ابحث عن كلمة المرور</h1>
     <div class="game-container">
         <div class="box" onclick="showMessage(1)">1</div>
